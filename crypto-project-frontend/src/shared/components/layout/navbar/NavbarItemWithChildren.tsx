@@ -1,50 +1,51 @@
 import React, { ReactNode, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Grow } from '@mui/material';
+import NavbarItemButton from '@/shared/components/layout/navbar/NavbarItemButton';
 
 const NavbarItemWithChildren = ({ title, children }: NavbarItemProps) => {
   const [openedPopover, setOpenedPopover] = useState(false);
 
   const popoverEnter = () => {
-    if (children) {
-      setOpenedPopover(true);
-    }
+    setOpenedPopover(true);
   };
 
   const popoverLeave = () => {
-    if (children) {
-      setOpenedPopover(false);
-    }
+    setOpenedPopover(false);
   };
 
   return (
-    <Box>
+    <>
       <Box
-        sx={{
-          minWidth: 120,
-          cursor: children ? 'default' : 'pointer',
-        }}
         onMouseEnter={popoverEnter}
         onMouseLeave={popoverLeave}
+        sx={{ cursor: children ? 'default' : 'pointer' }}
       >
-        <Typography>{title}</Typography>
+        <NavbarItemButton title={title} />
       </Box>
 
       {openedPopover && children && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '64px',
-            width: '100vh',
-            zIndex: 3,
-            left: 0,
-            height: '200px',
-            bgcolor: 'background.paper',
-          }}
-        >
-          {children}
-        </Box>
+        <Grow in style={{ transformOrigin: '0 0 0' }} timeout={500}>
+          <Box
+            component="section"
+            sx={{
+              position: 'absolute',
+              top: '64px',
+              width: '100vw',
+              zIndex: 3,
+              left: 0,
+              borderBottom: 1,
+              bgcolor: 'background.paper',
+              borderBottomColor: 'grey.300',
+              boxShadow: 'rgb(0 0 0 / 8%) 0px 3px 10px',
+            }}
+          >
+            <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center', marginY: 2 }}>
+              {children}
+            </Container>
+          </Box>
+        </Grow>
       )}
-    </Box>
+    </>
   );
 };
 

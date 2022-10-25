@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
 import MainPage from './pages/landing-page/main/MainPage';
 
 const router = createBrowserRouter([
@@ -9,6 +10,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App = () => <RouterProvider router={router} />;
+const App = () => (
+  <>
+    <CssBaseline />
+    <RouterProvider router={router} />
+  </>
+);
 
 export default App;

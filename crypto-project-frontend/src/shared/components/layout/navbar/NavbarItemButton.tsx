@@ -5,8 +5,11 @@ const NavbarItemButton = ({ title }: NavbarItemButtonProps) => {
   const navbarHeight = 64;
   return (
     <Button
+      variant="text"
       sx={{
         height: navbarHeight,
+        typography: 'subtitle1',
+        color: 'text.primary',
         justifyItems: 'center',
         borderBottom: 4,
         borderColor: 'common.white',

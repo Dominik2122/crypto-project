@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import NavbarItemButton from '@/shared/components/layout/navbar/NavbarItemButton';
 
 const NavbarItem = ({ title, route }: NavbarItemProps) => (
-  <Link to={route} style={{ textDecoration: 'none', color: 'inherit' }}>
+  <Link to={route} style={{ textDecoration: 'none' }}>
     <NavbarItemButton title={title} />
   </Link>
 );
