@@ -24,7 +24,7 @@
       "@/shared/*": ["./shared/*"],
       "@/pages/*": ["./pages/*"],
       "@/routes/*": ["./routes/*"],
-      "@/features/*": ["./features/*"],
+      "@/modules/*": ["./modules/*"],
     }
   },
   "include": [

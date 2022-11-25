@@ -1,12 +1,21 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
-import MainPage from './pages/landing-page/main/MainPage';
+import { LandingPage, LandingPageRoutes } from '@/pages/landing-page/LandingPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainPage />,
+    element: <LandingPage />,
+    children: LandingPageRoutes,
+  },
+  {
+    path: '*',
+    element: (
+      <main style={{ padding: '1rem' }}>
+        <p>There's nothing here!</p>
+      </main>
+    ),
   },
 ]);
 

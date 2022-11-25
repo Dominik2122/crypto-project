@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Container } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Navbar from '@/shared/components/layout/navbar/Navbar';
 import NavbarItem from '@/shared/components/layout/navbar/NavbarItem';
 import NavbarItemWithChildren from '@/shared/components/layout/navbar/NavbarItemWithChildren';
@@ -14,7 +15,18 @@ const LandingPageNavbar = () => {
     />
   );
 
-  const rightSection = <div>dasdad</div>;
+  const rightSection = (
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Link to="/signup" style={{ textDecoration: 'none' }}>
+        <Button variant="text" sx={{ marginRight: 2 }}>
+          Sign In
+        </Button>
+      </Link>
+      <Link to="/login" style={{ textDecoration: 'none' }}>
+        <Button variant="contained">Login</Button>
+      </Link>
+    </Box>
+  );
   const centerSection = [
     <NavbarItemWithChildren key="1" title="Explore">
       <div className="" />
@@ -28,29 +40,7 @@ const LandingPageNavbar = () => {
   ];
 
   return (
-    <Box
-      sx={{
-        height: navbarHeight,
-        display: 'flex',
-        flexDirection: 'column',
-        flexGrow: 1,
-        justifyContent: 'center',
-        position: 'sticky',
-        top: 0,
-        zIndex: 2,
-        borderBottom: 1,
-        bgcolor: 'background.paper',
-        borderBottomColor: 'grey.300',
-      }}
-    >
-      <Container maxWidth="xl">
-        <Navbar
-          leftContent={leftSection}
-          centerContent={centerSection}
-          rightContent={rightSection}
-        />
-      </Container>
-    </Box>
+    <Navbar leftContent={leftSection} centerContent={centerSection} rightContent={rightSection} />
   );
 };
 export default LandingPageNavbar;

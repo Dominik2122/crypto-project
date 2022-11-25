@@ -12,7 +12,7 @@ const NavbarItemButton = ({ title }: NavbarItemButtonProps) => {
         color: 'text.primary',
         justifyItems: 'center',
         borderBottom: 4,
-        borderColor: 'common.white',
+        borderColor: 'transparent',
         '&:hover': {
           borderColor: 'primary.main',
         },

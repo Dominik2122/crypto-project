@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Container } from '@mui/material';
-import LandingPageNavbar from './LandingPageNavbar';
+import LandingPageNavbar from '@/pages/landing-page/Layout/MainNavbar';
 
 const LandingPageLayout = ({ children }: { children: ReactNode }) => (
   <>
