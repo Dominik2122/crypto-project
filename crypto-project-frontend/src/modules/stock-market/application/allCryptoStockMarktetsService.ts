@@ -1,16 +1,29 @@
 import { useEffect } from 'react';
 import { LoadAllCryptoStockMarketsCommand } from '@/modules/stock-market/application/command/loadAllCryptoStockMarketsCommand';
 import { GetAllCryptoStockMarketsQuery } from '@/modules/stock-market/application/query/getAllCryptoStockMarketsQuery';
-import Tickers from '@/modules/stock-market/domain/Tickers';
+import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
 import useGetAllStockMarketsDtoPort from '@/modules/stock-market/insfrastructure/websocket/useGetAllStockMarketsDtoPort';
 import useAllCryptoTickerState from '@/modules/stock-market/insfrastructure/storage/useAllCryptoTickerState';
+import { LoadSpecificCryptoStockMarketsCommand } from '@/modules/stock-market/application/command/loadSpecificCryptoStockMarketsCommand';
+import useGetSpecificStockMarketsDtoPort from '@/modules/stock-market/insfrastructure/websocket/useGetSpecificStockMarketsDtoPort';
+import BaseAssetsSymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
 
-export const useLoadCryptoStockMarketsCommand: LoadAllCryptoStockMarketsCommand = (
-  stocks?: Tickers[],
+export const useLoadAllCryptoStockMarketsCommand: LoadAllCryptoStockMarketsCommand = () => {
+  const data = useGetAllStockMarketsDtoPort();
+  const updateAll = useAllCryptoTickerState((state) => state.updateAll);
+  useEffect(() => {
+    if (data) {
+      updateAll(data);
+    }
+  }, [data]);
+};
+
+export const useLoadCryptoSpecificStockMarketsCommand: LoadSpecificCryptoStockMarketsCommand = (
+  stocks: CryptoSymbols[],
+  fiatSymbol?: BaseAssetsSymbols,
 ) => {
-  const data = useGetAllStockMarketsDtoPort([]);
+  const data = useGetSpecificStockMarketsDtoPort(stocks, fiatSymbol ?? BaseAssetsSymbols.USD);
   const updateOne = useAllCryptoTickerState((state) => state.updateOne);
-
   useEffect(() => {
     if (data) {
       updateOne(data);

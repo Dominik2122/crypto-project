@@ -1,55 +1,71 @@
 import * as React from 'react';
-import { memo } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { CircularProgress, Typography } from '@mui/material';
 import {
   useAllCryptoTickersQuery,
-  useLoadCryptoStockMarketsCommand,
+  useLoadCryptoSpecificStockMarketsCommand,
 } from '@/modules/stock-market/application/allCryptoStockMarktetsService';
-
-const MainCryptoListItem = memo(
-  ({ ticker, value, volume }: { ticker: string; value: number; volume: string }) => (
-    <TableRow>
-      <TableCell component="th" scope="row">
-        {ticker}
-      </TableCell>
-      <TableCell align="right">{value}</TableCell>
-      <TableCell align="right">{volume}</TableCell>
-    </TableRow>
-  ),
-);
+import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
+import BasicCryptoListItem from '@/modules/stock-market/features/basic-crypto-list/BasicCryptoListItem';
 
 const BasicCryptoList = () => {
-  useLoadCryptoStockMarketsCommand();
-  const liveData = useAllCryptoTickersQuery();
+  useLoadCryptoSpecificStockMarketsCommand([
+    CryptoSymbols.BTC,
+    CryptoSymbols.ETH,
+    CryptoSymbols.SOL,
+    CryptoSymbols.ADA,
+    CryptoSymbols.DOGE,
+  ]);
 
-  return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Crypto prices</TableCell>
-            <TableCell align="right">Value $</TableCell>
-            <TableCell align="right">Volume</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {liveData.map((row) => (
-            <MainCryptoListItem
-              key={row.name}
-              value={row.currentPrice.value}
-              ticker={row.tickerSymbol.symbol}
-              volume={row.stats.priceChangePercent}
-            />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+  const cryptoStockMarkets = useAllCryptoTickersQuery();
+
+  return cryptoStockMarkets.length ? (
+    <Table sx={{ width: '100%' }} size="medium" aria-label="a table">
+      <colgroup>
+        <col width="25%" />
+        <col width="25%" />
+        <col width="25%" />
+        <col width="25%" />
+      </colgroup>
+      <TableHead>
+        <TableRow>
+          <TableCell sx={{ color: 'text.secondary' }}>
+            <Typography noWrap variant="body2" sx={{ color: 'text.secondary' }}>
+              Name
+            </Typography>
+          </TableCell>
+          <TableCell sx={{ color: 'text.secondary' }} align="right">
+            Value
+          </TableCell>
+          <TableCell sx={{ color: 'text.secondary' }} align="right">
+            Volume
+          </TableCell>
+          <TableCell align="right">
+            <Typography noWrap variant="body2" sx={{ color: 'text.secondary' }}>
+              % 24H
+            </Typography>
+          </TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {cryptoStockMarkets.map((row) => (
+          <BasicCryptoListItem
+            key={row.tickerSymbol.symbol}
+            value={row.currentPrice.value}
+            currency={row.currentPrice.currency}
+            percentageChange={row.stats.priceChangePercent}
+            ticker={row.tickerSymbol.symbol}
+            volume={row.stats.tradedAssetVolume}
+          />
+        ))}
+      </TableBody>
+    </Table>
+  ) : (
+    <CircularProgress />
   );
 };
 

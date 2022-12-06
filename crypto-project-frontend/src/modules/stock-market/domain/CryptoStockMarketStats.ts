@@ -1,7 +1,7 @@
 export default class CryptoStockMarketStats {
   constructor(
-    public readonly marketCap: string,
-    public readonly typicalHoldTime: string,
-    public readonly priceChangePercent: string,
+    public readonly tradedAssetVolume: number,
+    public readonly totalNumberOfTrades: number,
+    public readonly priceChangePercent: number,
   ) {}
 }
