@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import LandingPageLayout from '@/pages/landing-page/Layout/LandingPageLayout';
+import LandingPageLayout from '@/pages/landing-page/layout/LandingPageLayout';
 import MainPage from '@/pages/landing-page/children/MainPage';
 
 export const LandingPage = () => (

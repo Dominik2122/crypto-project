@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Navbar from '@/shared/components/layout/navbar/Navbar';
-import NavbarItem from '@/shared/components/layout/navbar/NavbarItem';
 import NavbarItemWithChildren from '@/shared/components/layout/navbar/NavbarItemWithChildren';
 
 const LandingPageNavbar = () => {
@@ -14,7 +13,6 @@ const LandingPageNavbar = () => {
       sx={{ maxHeight: navbarHeight - 10, alignSelf: 'center' }}
     />
   );
-
   const rightSection = (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Link to="/signup" style={{ textDecoration: 'none' }}>
@@ -34,9 +32,6 @@ const LandingPageNavbar = () => {
     <NavbarItemWithChildren key="2" title="Learn">
       <div className="">ABCDEF</div>
     </NavbarItemWithChildren>,
-    <NavbarItem key="3" title="DDD" route="" />,
-    <NavbarItem key="4" title="dsadas" route="" />,
-    <NavbarItem key="5" title="sdadsa" route="" />,
   ];
 
   return (
