@@ -1,8 +1,8 @@
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Container, Grow } from '@mui/material';
-import NavbarItemButton from '@/shared/components/layout/navbar/NavbarItemButton';
+import { NavbarItem } from '@/shared/components/layout/navbar/NavbarItem';
 
-const NavbarItemWithChildren = ({ title, children }: NavbarItemProps) => {
+const DesktopNavbarItemWithChildren = ({ item }: { item: NavbarItem }) => {
   const [openedPopover, setOpenedPopover] = useState(false);
 
   const popoverEnter = () => {
@@ -18,12 +18,12 @@ const NavbarItemWithChildren = ({ title, children }: NavbarItemProps) => {
       <Box
         onMouseEnter={popoverEnter}
         onMouseLeave={popoverLeave}
-        sx={{ cursor: children ? 'default' : 'pointer' }}
+        sx={{ cursor: item.navbarChildren.length ? 'default' : 'pointer' }}
       >
-        <NavbarItemButton title={title} />
+        {item.content}
       </Box>
 
-      {openedPopover && children && (
+      {openedPopover && (
         <Grow in style={{ transformOrigin: '0 0 0' }} timeout={500}>
           <Box
             component="section"
@@ -40,7 +40,7 @@ const NavbarItemWithChildren = ({ title, children }: NavbarItemProps) => {
             }}
           >
             <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center', marginY: 2 }}>
-              {children}
+              {item.navbarChildren.map((itemChild) => itemChild.content)}
             </Container>
           </Box>
         </Grow>
@@ -49,9 +49,4 @@ const NavbarItemWithChildren = ({ title, children }: NavbarItemProps) => {
   );
 };
 
-export interface NavbarItemProps {
-  title: string;
-  children: ReactNode;
-}
-
-export default NavbarItemWithChildren;
+export default DesktopNavbarItemWithChildren;

@@ -1,46 +1,100 @@
-import React from 'react';
-import { Box, Button } from '@mui/material';
+import React, { useMemo } from 'react';
+import { Box, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Navbar from '@/shared/components/layout/navbar/Navbar';
-import NavbarItem from '@/shared/components/layout/navbar/NavbarItem';
-import NavbarItemWithChildren from '@/shared/components/layout/navbar/NavbarItemWithChildren';
+import DesktopNavbar from '@/shared/components/layout/navbar/DesktopNavbar';
+import { NavbarItem } from '@/shared/components/layout/navbar/NavbarItem';
+import MobileNavbar from '@/shared/components/layout/navbar/MobileNavbar';
 
 const LandingPageNavbar = () => {
   const navbarHeight = 64;
-  const leftSection = (
-    <Box
-      component="img"
-      src="https://companieslogo.com/img/orig/COIN-a63dbab3.png?t=1648737284"
-      sx={{ maxHeight: navbarHeight - 10, alignSelf: 'center' }}
-    />
+  const leftSection: NavbarItem = useMemo(
+    () => ({
+      key: 'leftSection',
+      content: (
+        <Box
+          component="img"
+          src="https://companieslogo.com/img/orig/COIN-a63dbab3.png?t=1648737284"
+          sx={{ maxHeight: navbarHeight - 30, alignSelf: 'center' }}
+        />
+      ),
+      navbarChildren: [],
+    }),
+    [],
   );
 
-  const rightSection = (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Link to="/signup" style={{ textDecoration: 'none' }}>
-        <Button variant="text" sx={{ marginRight: 2 }}>
-          Sign In
-        </Button>
-      </Link>
-      <Link to="/login" style={{ textDecoration: 'none' }}>
-        <Button variant="contained">Login</Button>
-      </Link>
-    </Box>
+  const rightSection: NavbarItem = useMemo(
+    () => ({
+      key: 'rightSection',
+      content: (
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flex: 1 }}>
+          <Link to="/signup" style={{ textDecoration: 'none' }}>
+            <Button variant="text" sx={{ marginRight: 2 }}>
+              Sign In
+            </Button>
+          </Link>
+          <Link to="/login" style={{ textDecoration: 'none' }}>
+            <Button variant="contained">Login</Button>
+          </Link>
+        </Box>
+      ),
+      navbarChildren: [],
+    }),
+    [],
   );
-  const centerSection = [
-    <NavbarItemWithChildren key="1" title="Explore">
-      <div className="" />
-    </NavbarItemWithChildren>,
-    <NavbarItemWithChildren key="2" title="Learn">
-      <div className="">ABCDEF</div>
-    </NavbarItemWithChildren>,
-    <NavbarItem key="3" title="DDD" route="" />,
-    <NavbarItem key="4" title="dsadas" route="" />,
-    <NavbarItem key="5" title="sdadsa" route="" />,
-  ];
+
+  const centerSection: NavbarItem[] = useMemo(
+    () => [
+      {
+        key: 'explore',
+        content: <Typography>Explore</Typography>,
+        navbarChildren: [
+          {
+            key: 'explore-',
+            content: <div className="">KRUOPIO</div>,
+            navbarChildren: [],
+          },
+          {
+            key: 'explore-z',
+            content: <div className="">zypio</div>,
+            navbarChildren: [],
+          },
+        ],
+      },
+      {
+        key: 'learn',
+        content: <Typography>Learn</Typography>,
+        navbarChildren: [
+          {
+            key: 'learn-',
+            content: <div className="">GUPIO PG</div>,
+            navbarChildren: [],
+          },
+        ],
+      },
+    ],
+    [],
+  );
+
+  const desktopItems: NavbarItem[] = useMemo(
+    () => [leftSection, ...centerSection, rightSection],
+    [],
+  );
+
+  const mobileContent: React.ReactNode = useMemo(
+    () => (
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flex: 1 }}>
+        {leftSection.content}
+        {rightSection.content}
+      </Box>
+    ),
+    [],
+  );
 
   return (
-    <Navbar leftContent={leftSection} centerContent={centerSection} rightContent={rightSection} />
+    <>
+      <DesktopNavbar navbarItems={desktopItems} />
+      <MobileNavbar key="mobile-navbar" navbarChildren={centerSection} content={mobileContent} />
+    </>
   );
 };
 export default LandingPageNavbar;

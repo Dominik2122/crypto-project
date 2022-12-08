@@ -1,16 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import NavbarItemButton from '@/shared/components/layout/navbar/NavbarItemButton';
+import { ReactNode } from 'react';
 
-const NavbarItem = ({ title, route }: NavbarItemProps) => (
-  <Link to={route} style={{ textDecoration: 'none' }}>
-    <NavbarItemButton title={title} />
-  </Link>
-);
-
-export interface NavbarItemProps {
-  title: string;
-  route: string;
+export interface NavbarItem {
+  content: ReactNode;
+  key: string;
+  navbarChildren: NavbarItem[];
 }
-
-export default NavbarItem;

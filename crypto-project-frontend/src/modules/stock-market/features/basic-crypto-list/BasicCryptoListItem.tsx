@@ -6,6 +6,7 @@ import BaseAssetsSymbols from '@/shared/components/data/symbols/BaseAssetsSymbol
 import getNumberWithSignificantDigits from '@/shared/components/ui/text-display/getNumberWithSignificantDigits';
 import PriceDisplay from '@/shared/components/ui/text-display/PriceDisplay';
 import PercentageChange from '@/shared/components/ui/text-display/PercentageChange';
+import { Desktop } from '@/shared/components/layout/media-query/Desktop';
 
 const BasicCryptoListItem = memo(
   ({
@@ -33,7 +34,10 @@ const BasicCryptoListItem = memo(
         <TableCell align="right">
           <PriceDisplay currency={currency} valueToDisplay={valueToDisplay} />
         </TableCell>
-        <TableCell align="right">{volumeToDisplay}</TableCell>
+        <Desktop>
+          <TableCell align="right">{volumeToDisplay}</TableCell>
+        </Desktop>
+
         <PercentageChange change={percentageChangeToDisplay} />
       </TableRow>
     );

@@ -9,10 +9,10 @@ export type SignupFormData = {
   lastName: string;
 };
 
-export const SignupComponent = ({ defaultEmail, onFormSubmit }: LoginFormProps) => {
+export const SignupComponent = ({ email, onFormSubmit }: SignupFormProps) => {
   const { control, handleSubmit, formState } = useForm<SignupFormData>({
     defaultValues: {
-      email: defaultEmail,
+      email: email ?? '',
       password: '',
       firstName: '',
       lastName: '',
@@ -63,7 +63,7 @@ export const SignupComponent = ({ defaultEmail, onFormSubmit }: LoginFormProps) 
       <Controller
         name="email"
         control={control}
-        render={({ field, fieldState }) => (
+        render={() => (
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -84,13 +84,7 @@ export const SignupComponent = ({ defaultEmail, onFormSubmit }: LoginFormProps) 
   );
 };
 
-export interface LoginFormProps {
-  defaultEmail?: string;
+export interface SignupFormProps {
   onFormSubmit: (data: SignupFormData) => void;
+  email?: string;
 }
-
-const defaultProps = {
-  defaultEmail: '',
-};
-
-SignupComponent.defaultProps = defaultProps;

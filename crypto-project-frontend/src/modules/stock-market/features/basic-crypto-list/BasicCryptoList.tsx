@@ -11,6 +11,7 @@ import {
 } from '@/modules/stock-market/application/allCryptoStockMarktetsService';
 import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
 import BasicCryptoListItem from '@/modules/stock-market/features/basic-crypto-list/BasicCryptoListItem';
+import { Desktop } from '@/shared/components/layout/media-query/Desktop';
 
 const BasicCryptoList = () => {
   useLoadCryptoSpecificStockMarketsCommand([
@@ -24,11 +25,13 @@ const BasicCryptoList = () => {
   const cryptoStockMarkets = useAllCryptoTickersQuery();
 
   return cryptoStockMarkets.length ? (
-    <Table sx={{ width: '100%' }} size="medium" aria-label="a table">
+    <Table size="medium" aria-label="a table">
       <colgroup>
         <col width="25%" />
         <col width="25%" />
-        <col width="25%" />
+        <Desktop>
+          <col width="25%" />
+        </Desktop>
         <col width="25%" />
       </colgroup>
       <TableHead>
@@ -41,9 +44,12 @@ const BasicCryptoList = () => {
           <TableCell sx={{ color: 'text.secondary' }} align="right">
             Value
           </TableCell>
-          <TableCell sx={{ color: 'text.secondary' }} align="right">
-            Volume
-          </TableCell>
+          <Desktop>
+            <TableCell sx={{ color: 'text.secondary' }} align="right">
+              Volume
+            </TableCell>
+          </Desktop>
+
           <TableCell align="right">
             <Typography noWrap variant="body2" sx={{ color: 'text.secondary' }}>
               % 24H

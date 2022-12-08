@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 
-const NavbarItemButton = ({ title }: NavbarItemButtonProps) => {
+const DesktopNavbarItemButton = ({ title }: NavbarItemButtonProps) => {
   const navbarHeight = 64;
   return (
     <Button
@@ -27,4 +27,4 @@ export interface NavbarItemButtonProps {
   title: string;
 }
 
-export default NavbarItemButton;
+export default DesktopNavbarItemButton;

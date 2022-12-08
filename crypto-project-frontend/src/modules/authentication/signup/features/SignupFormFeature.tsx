@@ -1,14 +1,14 @@
 import React from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { LoginForm, LoginFormData } from 'modules/authentication/login/ui/form/LoginForm';
-import postLoginData from 'modules/authentication/login/infrastructure/postLoginData';
+import {
+  SignupComponent,
+  SignupFormData,
+} from '@/modules/authentication/signup/ui/form/SignupComponent';
 
 const SignUpForm = () => {
-  const onFormSubmit = async (data: LoginFormData) => {
-    await postLoginData(data).then((value) => {
-      console.log(value);
-    });
+  const onFormSubmit = async (data: SignupFormData) => {
+    console.log(data);
   };
 
   return (
@@ -26,7 +26,7 @@ const SignUpForm = () => {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <LoginForm onFormSubmit={onFormSubmit} />
+      <SignupComponent onFormSubmit={onFormSubmit} />
     </Box>
   );
 };

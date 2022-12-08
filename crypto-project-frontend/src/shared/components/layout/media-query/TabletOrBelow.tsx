@@ -1,6 +1,9 @@
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery, useTheme } from '@mui/material';
 
-const useTabletAndBelowMediaQuery = () => useMediaQuery({ query: '(max-width: 1279px)' });
+export const useTabletAndBelowMediaQuery = () => {
+  const theme = useTheme();
+  return useMediaQuery(theme.breakpoints.down('lg'));
+};
 
 const TabletAndBelow = ({ children }: { children: any }) => {
   const isTabletAndBelow = useTabletAndBelowMediaQuery();

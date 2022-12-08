@@ -1,11 +1,12 @@
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery, useTheme } from '@mui/material';
 
-const useDesktopMediaQuery = () => useMediaQuery({ query: '(min-width: 1280px)' });
+export const useDesktopMediaQuery = () => {
+  const theme = useTheme();
+  return useMediaQuery(theme.breakpoints.up('lg'));
+};
 
-const Desktop = ({ children }: { children: any }) => {
+export const Desktop = ({ children }: { children: any }) => {
   const isDesktop = useDesktopMediaQuery();
 
   return isDesktop ? children : null;
 };
-
-export default Desktop;
