@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 
 export type SignupFormData = {
@@ -35,7 +35,40 @@ export const SignupComponent = ({ email, onFormSubmit }: SignupFormProps) => {
             id="email"
             label="Email Address"
             autoComplete="email"
-            autoFocus
+            autoFocus={!email}
+          />
+        )}
+      />
+
+      <Controller
+        name="firstName"
+        control={control}
+        rules={{ required: 'This field is required' }}
+        render={({ field, fieldState }) => (
+          <TextField
+            {...field}
+            margin="normal"
+            fullWidth
+            error={!!fieldState.error}
+            id="firstName"
+            label="First Name"
+            autoFocus={!!email}
+          />
+        )}
+      />
+
+      <Controller
+        name="lastName"
+        control={control}
+        rules={{ required: 'This field is required' }}
+        render={({ field, fieldState }) => (
+          <TextField
+            {...field}
+            margin="normal"
+            fullWidth
+            error={!!fieldState.error}
+            id="lastName"
+            label="Last Name"
           />
         )}
       />
@@ -56,17 +89,6 @@ export const SignupComponent = ({ email, onFormSubmit }: SignupFormProps) => {
             type="password"
             id="password"
             autoComplete="current-password"
-          />
-        )}
-      />
-
-      <Controller
-        name="email"
-        control={control}
-        render={() => (
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
           />
         )}
       />

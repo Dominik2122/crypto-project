@@ -11,11 +11,13 @@ const LandingPageNavbar = () => {
     () => ({
       key: 'leftSection',
       content: (
-        <Box
-          component="img"
-          src="https://companieslogo.com/img/orig/COIN-a63dbab3.png?t=1648737284"
-          sx={{ maxHeight: navbarHeight - 30, alignSelf: 'center' }}
-        />
+        <Link to="/">
+          <Box
+            component="img"
+            src="https://companieslogo.com/img/orig/COIN-a63dbab3.png?t=1648737284"
+            sx={{ maxHeight: navbarHeight - 30, alignSelf: 'center' }}
+          />
+        </Link>
       ),
       navbarChildren: [],
     }),
@@ -27,12 +29,12 @@ const LandingPageNavbar = () => {
       key: 'rightSection',
       content: (
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flex: 1 }}>
-          <Link to="/signup" style={{ textDecoration: 'none' }}>
+          <Link to="/auth/signup" style={{ textDecoration: 'none' }}>
             <Button variant="text" sx={{ marginRight: 2 }}>
               Sign In
             </Button>
           </Link>
-          <Link to="/login" style={{ textDecoration: 'none' }}>
+          <Link to="/auth/login" style={{ textDecoration: 'none' }}>
             <Button variant="contained">Login</Button>
           </Link>
         </Box>

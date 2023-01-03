@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import BasicCryptoList from '@/modules/stock-market/features/basic-crypto-list/BasicCryptoList';
-import SignupStartFormFeature from '@/modules/authentication/signup/features/SignupStartFormFeature';
+import SignupStartFormFeature from '@/modules/authentication/features/signup/SignupStartFormFeature';
 import { useDesktopMediaQuery } from '@/shared/components/layout/media-query/Desktop';
 
 const MainPageSignupStart = () => {

@@ -6,7 +6,7 @@ export type SignupStartFormData = {
   email: string;
 };
 
-export const SignupStartFormComponent = ({ onFormSubmit }: SignupStartFormProps) => {
+export const SignupEmailFormComponent = ({ onFormSubmit }: SignupStartFormProps) => {
   const { control, handleSubmit, formState } = useForm<SignupStartFormData>({
     defaultValues: {
       email: '',

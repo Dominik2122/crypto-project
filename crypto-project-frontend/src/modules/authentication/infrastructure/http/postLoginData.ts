@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { PostLoginDataRequest } from 'modules/authentication/login/infrastructure/requests/PostLoginDataRequest';
-import { LoginDataDTO } from 'modules/authentication/login/infrastructure/dto/LoginDataDTO';
+import { PostLoginDataRequest } from '@/modules/authentication/infrastructure/requests/PostLoginDataRequest';
+import { LoginDataDTO } from '@/modules/authentication/infrastructure/dto/LoginDataDTO';
 
 const postLoginData = (request: PostLoginDataRequest): Promise<LoginDataDTO> =>
   axios.post<LoginDataDTO>('login', request).then((value) => value.data);
