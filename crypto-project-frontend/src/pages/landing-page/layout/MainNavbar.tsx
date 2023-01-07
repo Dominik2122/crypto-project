@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import DesktopNavbar from '@/shared/components/layout/navbar/DesktopNavbar';
 import { NavbarItem } from '@/shared/components/layout/navbar/NavbarItem';
 import MobileNavbar from '@/shared/components/layout/navbar/MobileNavbar';
+import useUser from '@/modules/authentication/application/useUser';
 
 const LandingPageNavbar = () => {
+  const { isUser, user } = useUser();
   const navbarHeight = 64;
   const leftSection: NavbarItem = useMemo(
     () => ({
@@ -24,7 +26,7 @@ const LandingPageNavbar = () => {
     [],
   );
 
-  const rightSection: NavbarItem = useMemo(
+  const unauthRightSection: NavbarItem = useMemo(
     () => ({
       key: 'rightSection',
       content: (
@@ -44,23 +46,30 @@ const LandingPageNavbar = () => {
     [],
   );
 
+  const authRightSection: NavbarItem = useMemo(
+    () => ({
+      key: 'rightSection',
+      content: (
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flex: 1 }}>
+          <Link to="/auth/signup" style={{ textDecoration: 'none' }}>
+            <Button variant="text" sx={{ marginRight: 2 }}>
+              My profile:
+              {user?.login.value}
+            </Button>
+          </Link>
+        </Box>
+      ),
+      navbarChildren: [],
+    }),
+    [user],
+  );
+
   const centerSection: NavbarItem[] = useMemo(
     () => [
       {
         key: 'explore',
         content: <Typography>Explore</Typography>,
-        navbarChildren: [
-          {
-            key: 'explore-',
-            content: <div className="">KRUOPIO</div>,
-            navbarChildren: [],
-          },
-          {
-            key: 'explore-z',
-            content: <div className="">zypio</div>,
-            navbarChildren: [],
-          },
-        ],
+        navbarChildren: [],
       },
       {
         key: 'learn',
@@ -77,9 +86,11 @@ const LandingPageNavbar = () => {
     [],
   );
 
+  const rightSection = useMemo(() => (isUser ? authRightSection : unauthRightSection), [user]);
+
   const desktopItems: NavbarItem[] = useMemo(
     () => [leftSection, ...centerSection, rightSection],
-    [],
+    [leftSection, centerSection, rightSection],
   );
 
   const mobileContent: React.ReactNode = useMemo(
@@ -89,7 +100,7 @@ const LandingPageNavbar = () => {
         {rightSection.content}
       </Box>
     ),
-    [],
+    [leftSection, rightSection],
   );
 
   return (

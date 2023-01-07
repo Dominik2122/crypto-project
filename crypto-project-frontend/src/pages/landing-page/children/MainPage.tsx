@@ -3,6 +3,7 @@ import { Box, Container, Typography } from '@mui/material';
 import BasicCryptoList from '@/modules/stock-market/features/basic-crypto-list/BasicCryptoList';
 import SignupStartFormFeature from '@/modules/authentication/features/signup/SignupStartFormFeature';
 import { useDesktopMediaQuery } from '@/shared/components/layout/media-query/Desktop';
+import useUser from '@/modules/authentication/application/useUser';
 
 const MainPageSignupStart = () => {
   const isDesktop = useDesktopMediaQuery();
@@ -46,25 +47,47 @@ const MainPageSignupStart = () => {
   );
 };
 
-const MainPage = () => (
-  <Container
-    maxWidth="lg"
+const MainPageWelcome = ({ userName }: { userName: string }) => (
+  <Box
+    component="section"
     sx={{
-      marginTop: 2,
+      marginTop: 8,
+      display: 'flex',
+      flexDirection: 'column',
     }}
   >
-    <Box
+    <Typography sx={{ fontWeight: 'bold' }} variant="h4">
+      Welcome {userName}
+    </Typography>
+    <Typography align="center" variant="h6">
+      Checkout your portfolio and trade!
+    </Typography>
+  </Box>
+);
+
+const MainPage = () => {
+  const { user } = useUser();
+
+  return (
+    <Container
+      maxWidth="lg"
       sx={{
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
+        marginTop: 2,
       }}
     >
-      <MainPageSignupStart />
-      <BasicCryptoList />
-    </Box>
-  </Container>
-);
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        {user ? <MainPageWelcome userName={user.login.value} /> : <MainPageSignupStart />}
+        <BasicCryptoList />
+      </Box>
+    </Container>
+  );
+};
 export default MainPage;

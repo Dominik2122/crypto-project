@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 import { LandingPage, LandingPageRoutes } from '@/pages/landing-page/LandingPage';
+import { AuthContextProvider } from '@/modules/authentication/application/authContext';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,9 @@ const router = createBrowserRouter([
 const App = () => (
   <>
     <CssBaseline />
-    <RouterProvider router={router} />
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
   </>
 );
 
