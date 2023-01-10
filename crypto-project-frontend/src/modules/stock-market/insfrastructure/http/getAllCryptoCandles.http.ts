@@ -3,13 +3,13 @@ import {
   BinanceCandle,
   binanceCandleConverter,
 } from '@/shared/hooks/infrastructure/websocket/binance/BinanceSymbolTicker';
-import { GetAllCryptoCandles } from '@/modules/stock-market/application/infrastructure/getAllCryptoCandle';
-import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
+import { GetAllCryptoCandles } from '@/modules/stock-market/application/infrastructure/candles/getAllCryptoCandles.dto.port';
+import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
 import CurrencySymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
 import binanceBaseAssetSymbols from '@/shared/hooks/infrastructure/websocket/binance/binanceBaseAssetSymbols';
 
-export const getAllCryptoCandleStick: GetAllCryptoCandles = (
-  stock: CryptoSymbols,
+export const getAllCryptoCandlesHttp: GetAllCryptoCandles = (
+  stock: DefaultCryptoSymbols,
   interval: string,
   fiat: CurrencySymbols = CurrencySymbols.USD,
 ) =>

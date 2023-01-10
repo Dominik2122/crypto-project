@@ -1,6 +1,6 @@
 import create from 'zustand';
-import { AllCryptoStockMarketState } from 'modules/stock-market/application/infrastructure/allCryptoStockMarketState';
-import CryptoStockMarket from 'modules/stock-market/domain/CryptoStockMarket';
+import { AllCryptoStocksStatsStatePort } from '@/modules/stock-market/application/infrastructure/market-stats/allCryptoStocksStats.state.port';
+import CryptoStockMarket from '@/modules/stock-market/domain/market-stats/CryptoStockMarket';
 
 const checkIfExistsAndUpdateMutable = (
   list: CryptoStockMarket[],
@@ -17,7 +17,7 @@ const checkIfExistsAndUpdateMutable = (
   return list;
 };
 
-const allCryptoStockData = create<AllCryptoStockMarketState>()((set) => ({
+const allCryptoStockData = create<AllCryptoStocksStatsStatePort>()((set) => ({
   tickers: [],
   updateOne: (ticker: CryptoStockMarket) =>
     set((state) => {

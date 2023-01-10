@@ -1,14 +1,14 @@
 import { cryptoSymbol } from 'crypto-symbol';
-import CryptoStockMarketPrice from '@/modules/stock-market/domain/CryptoStockMarketPrice';
-import CryptoStockMarketStats from '@/modules/stock-market/domain/CryptoStockMarketStats';
-import CryptoStockMarket from '@/modules/stock-market/domain/CryptoStockMarket';
+import CryptoStockMarketPrice from '@/modules/stock-market/domain/market-stats/CryptoStockMarketPrice';
+import CryptoStockMarketStats from '@/modules/stock-market/domain/market-stats/CryptoStockMarketStats';
+import CryptoStockMarket from '@/modules/stock-market/domain/market-stats/CryptoStockMarket';
 import TickerSymbol from '@/modules/stock-market/domain/TickerSymbol';
-import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
+import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
 import CurrencySymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
 import BaseAssetsSymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
 import binanceCryptoSymbols from '@/shared/hooks/infrastructure/websocket/binance/binanceCryptoSymbols';
 import binanceBaseAssetSymbols from '@/shared/hooks/infrastructure/websocket/binance/binanceBaseAssetSymbols';
-import CryptoStockMarketCandle from '@/modules/stock-market/domain/CryptoStockMarketCandle';
+import CryptoStockMarketCandle from '@/modules/stock-market/domain/candles/CryptoStockMarketCandle';
 
 export interface BinanceSymbolTicker {
   e: string; // Kline open time
@@ -71,11 +71,7 @@ const getAssetNameFromSymbol = (symbol: string) => {
 
 export const binanceSymbolTickerConverter = (data: BinanceSymbolTicker) => {
   const [cryptoName, currency, tickerSymbol] = getAssetNameFromSymbol(data.s);
-  const price = new CryptoStockMarketPrice(
-    Number(data.c),
-    currency ?? BaseAssetsSymbols.NONE,
-    new Date(data.E),
-  );
+  const price = new CryptoStockMarketPrice(Number(data.c), currency ?? BaseAssetsSymbols.NONE);
   const stats = new CryptoStockMarketStats(Number(data.v), data.n, Number(data.P));
   return new CryptoStockMarket(cryptoName ?? data.s, new TickerSymbol(tickerSymbol), price, stats);
 };
@@ -84,13 +80,13 @@ export const binanceCandleConverter = (data: BinanceCandle) =>
   new CryptoStockMarketCandle(Number(data[1]), Number(data[4]), new Date(data[0]));
 
 export const convertTickerNameToBinanceParams = (
-  ticker: CryptoSymbols,
+  ticker: DefaultCryptoSymbols,
   currency: CurrencySymbols,
 ): string =>
   `${binanceCryptoSymbols[ticker]}${binanceBaseAssetSymbols[currency].toLowerCase()}@ticker`;
 
 export const convertTickerNamesToBinanceParams = (
-  tickers: CryptoSymbols[],
+  tickers: DefaultCryptoSymbols[],
   currency: CurrencySymbols,
 ): string[] => {
   const binanceParams: string[] = [];

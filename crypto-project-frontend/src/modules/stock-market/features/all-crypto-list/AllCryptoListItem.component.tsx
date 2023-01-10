@@ -8,7 +8,7 @@ import PriceDisplay from '@/shared/components/ui/text-display/PriceDisplay';
 import PercentageChange from '@/shared/components/ui/text-display/PercentageChange';
 import { Desktop } from '@/shared/components/layout/media-query/Desktop';
 
-const AllCryptoListItem = memo(
+const AllCryptoListItemComponent = memo(
   ({
     ticker,
     value,
@@ -44,4 +44,4 @@ const AllCryptoListItem = memo(
   },
 );
 
-export default AllCryptoListItem;
+export default AllCryptoListItemComponent;

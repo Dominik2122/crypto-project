@@ -8,11 +8,11 @@ import { CircularProgress, Typography } from '@mui/material';
 import {
   useAllCryptoTickersQuery,
   useLoadAllCryptoStockMarketsCommand,
-} from '@/modules/stock-market/application/allCryptoStockMarktetsService';
+} from '@/modules/stock-market/application/allCryptoStocksStats.hooks';
 import BasicCryptoListItem from '@/modules/stock-market/features/basic-crypto-list/BasicCryptoListItem';
 import { Desktop } from '@/shared/components/layout/media-query/Desktop';
 
-const AllCryptoList = () => {
+const AllCryptoListComponent = () => {
   useLoadAllCryptoStockMarketsCommand();
 
   const cryptoStockMarkets = useAllCryptoTickersQuery();
@@ -68,4 +68,4 @@ const AllCryptoList = () => {
   );
 };
 
-export default AllCryptoList;
+export default AllCryptoListComponent;

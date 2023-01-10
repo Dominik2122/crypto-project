@@ -1,16 +1,8 @@
 import * as React from 'react';
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import TickerSymbol from '@/modules/stock-market/domain/TickerSymbol';
-import { useLoadOneCrypto } from '@/modules/stock-market/application/cryptoCandlesService';
+import { useLoadOneCrypto } from '@/modules/stock-market/application/oneCryptoCandles.hooks';
 
 const dateFormatter = (date: Date) => `${date.getHours()}:${date.getMinutes()}`;
 export const CryptoPriceChart = ({ ticker }: { ticker: TickerSymbol }) => {

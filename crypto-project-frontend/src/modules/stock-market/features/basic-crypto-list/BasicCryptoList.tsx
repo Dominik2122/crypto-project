@@ -8,18 +8,18 @@ import { CircularProgress, Typography } from '@mui/material';
 import {
   useAllCryptoTickersQuery,
   useLoadCryptoSpecificStockMarketsCommand,
-} from '@/modules/stock-market/application/allCryptoStockMarktetsService';
-import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
+} from '@/modules/stock-market/application/allCryptoStocksStats.hooks';
+import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
 import BasicCryptoListItem from '@/modules/stock-market/features/basic-crypto-list/BasicCryptoListItem';
 import { Desktop } from '@/shared/components/layout/media-query/Desktop';
 
 const BasicCryptoList = () => {
   useLoadCryptoSpecificStockMarketsCommand([
-    CryptoSymbols.BTC,
-    CryptoSymbols.ETH,
-    CryptoSymbols.SOL,
-    CryptoSymbols.ADA,
-    CryptoSymbols.DOGE,
+    DefaultCryptoSymbols.BTC,
+    DefaultCryptoSymbols.ETH,
+    DefaultCryptoSymbols.SOL,
+    DefaultCryptoSymbols.ADA,
+    DefaultCryptoSymbols.DOGE,
   ]);
 
   const cryptoStockMarkets = useAllCryptoTickersQuery();

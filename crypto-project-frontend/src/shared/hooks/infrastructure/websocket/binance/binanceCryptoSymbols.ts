@@ -1,11 +1,11 @@
-import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
+import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
 
-const binanceCryptoSymbols: Record<CryptoSymbols, string> = {
-  [CryptoSymbols.BTC]: 'btc',
-  [CryptoSymbols.ETH]: 'eth',
-  [CryptoSymbols.SOL]: 'sol',
-  [CryptoSymbols.ADA]: 'ada',
-  [CryptoSymbols.DOGE]: 'doge',
+const binanceCryptoSymbols: Record<DefaultCryptoSymbols, string> = {
+  [DefaultCryptoSymbols.BTC]: 'btc',
+  [DefaultCryptoSymbols.ETH]: 'eth',
+  [DefaultCryptoSymbols.SOL]: 'sol',
+  [DefaultCryptoSymbols.ADA]: 'ada',
+  [DefaultCryptoSymbols.DOGE]: 'doge',
 };
 
 export default binanceCryptoSymbols;
