@@ -1,4 +1,6 @@
 export interface BinanceWebsocketParams {
-  params?: string[];
-  id: number;
+  params?: string[] | string;
+  id?: number;
+
+  interval?: string;
 }

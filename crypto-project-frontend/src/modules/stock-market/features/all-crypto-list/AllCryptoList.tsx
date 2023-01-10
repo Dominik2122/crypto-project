@@ -7,33 +7,25 @@ import TableRow from '@mui/material/TableRow';
 import { CircularProgress, Typography } from '@mui/material';
 import {
   useAllCryptoTickersQuery,
-  useLoadCryptoSpecificStockMarketsCommand,
+  useLoadAllCryptoStockMarketsCommand,
 } from '@/modules/stock-market/application/allCryptoStockMarktetsService';
-import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
 import BasicCryptoListItem from '@/modules/stock-market/features/basic-crypto-list/BasicCryptoListItem';
 import { Desktop } from '@/shared/components/layout/media-query/Desktop';
 
-const BasicCryptoList = () => {
-  useLoadCryptoSpecificStockMarketsCommand([
-    CryptoSymbols.BTC,
-    CryptoSymbols.ETH,
-    CryptoSymbols.SOL,
-    CryptoSymbols.ADA,
-    CryptoSymbols.DOGE,
-  ]);
+const AllCryptoList = () => {
+  useLoadAllCryptoStockMarketsCommand();
 
   const cryptoStockMarkets = useAllCryptoTickersQuery();
 
   return cryptoStockMarkets.length ? (
     <Table size="medium" aria-label="a table">
       <colgroup>
-        <col width="20%" />
-        <col width="20%" />
+        <col width="25%" />
+        <col width="25%" />
         <Desktop>
-          <col width="20%" />
+          <col width="25%" />
         </Desktop>
-        <col width="20%" />
-        <col width="20%" />
+        <col width="25%" />
       </colgroup>
       <TableHead>
         <TableRow>
@@ -56,7 +48,6 @@ const BasicCryptoList = () => {
               % 24H
             </Typography>
           </TableCell>
-          <TableCell align="right" />
         </TableRow>
       </TableHead>
       <TableBody>
@@ -77,4 +68,4 @@ const BasicCryptoList = () => {
   );
 };
 
-export default BasicCryptoList;
+export default AllCryptoList;

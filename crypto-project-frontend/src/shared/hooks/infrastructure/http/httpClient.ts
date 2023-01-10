@@ -1,4 +1,5 @@
 import { AxiosClient } from '@/shared/hooks/infrastructure/http/axiosClient';
+import { BinanceClient } from '@/shared/hooks/infrastructure/http/binanceClient';
 
 export interface HttpClient {
   get<T>(url: string, config?: any): Promise<T>;
@@ -6,3 +7,5 @@ export interface HttpClient {
 }
 
 export const getHttpClient: () => HttpClient = () => AxiosClient;
+
+export const getMarketHttpClient: () => HttpClient = () => BinanceClient;

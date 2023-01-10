@@ -3,14 +3,14 @@ import { LoadAllCryptoStockMarketsCommand } from '@/modules/stock-market/applica
 import { GetAllCryptoStockMarketsQuery } from '@/modules/stock-market/application/query/getAllCryptoStockMarketsQuery';
 import CryptoSymbols from '@/modules/stock-market/domain/CryptoSymbols';
 import useGetAllStockMarketsDtoPort from '@/modules/stock-market/insfrastructure/websocket/useGetAllStockMarketsDtoPort';
-import useAllCryptoTickerState from '@/modules/stock-market/insfrastructure/storage/useAllCryptoTickerState';
+import allCryptoStockData from '@/modules/stock-market/insfrastructure/state/allCryptoStockData';
 import { LoadSpecificCryptoStockMarketsCommand } from '@/modules/stock-market/application/command/loadSpecificCryptoStockMarketsCommand';
 import useGetSpecificStockMarketsDtoPort from '@/modules/stock-market/insfrastructure/websocket/useGetSpecificStockMarketsDtoPort';
 import BaseAssetsSymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
 
 export const useLoadAllCryptoStockMarketsCommand: LoadAllCryptoStockMarketsCommand = () => {
   const data = useGetAllStockMarketsDtoPort();
-  const updateAll = useAllCryptoTickerState((state) => state.updateAll);
+  const updateAll = allCryptoStockData((state) => state.updateAll);
   useEffect(() => {
     if (data) {
       updateAll(data);
@@ -23,7 +23,7 @@ export const useLoadCryptoSpecificStockMarketsCommand: LoadSpecificCryptoStockMa
   fiatSymbol?: BaseAssetsSymbols,
 ) => {
   const data = useGetSpecificStockMarketsDtoPort(stocks, fiatSymbol ?? BaseAssetsSymbols.USD);
-  const updateOne = useAllCryptoTickerState((state) => state.updateOne);
+  const updateOne = allCryptoStockData((state) => state.updateOne);
   useEffect(() => {
     if (data) {
       updateOne(data);
@@ -32,4 +32,4 @@ export const useLoadCryptoSpecificStockMarketsCommand: LoadSpecificCryptoStockMa
 };
 
 export const useAllCryptoTickersQuery: GetAllCryptoStockMarketsQuery = () =>
-  useAllCryptoTickerState((state) => state.tickers);
+  allCryptoStockData((state) => state.tickers);

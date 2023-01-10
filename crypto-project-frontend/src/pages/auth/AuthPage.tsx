@@ -4,6 +4,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link, Outlet } from 'react-router-dom';
 import SignUpFormFeature from '@/modules/authentication/features/signup/SignupFormFeature';
 import LoginFormFeature from '@/modules/authentication/features/login/LoginFormFeature';
+import MainLayout from '@/shared/components/layout/page-layuot/MainLayout';
 
 export const AuthPageChildren = [
   {
@@ -55,4 +56,8 @@ export const AuthPageChildren = [
     ),
   },
 ];
-export const AuthPage = () => <Outlet />;
+export const AuthPage = () => (
+  <MainLayout>
+    <Outlet />
+  </MainLayout>
+);

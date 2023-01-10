@@ -1,10 +1,12 @@
-import React, { useMemo } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Box, Button, Fade, Popper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DesktopNavbar from '@/shared/components/layout/navbar/DesktopNavbar';
 import { NavbarItem } from '@/shared/components/layout/navbar/NavbarItem';
 import MobileNavbar from '@/shared/components/layout/navbar/MobileNavbar';
 import useUser from '@/modules/authentication/application/useUser';
+import MainNavbarAuthUser from '@/shared/components/layout/navbar/MainNavbarAuthUser';
 
 const LandingPageNavbar = () => {
   const { isUser, user } = useUser();
@@ -49,16 +51,7 @@ const LandingPageNavbar = () => {
   const authRightSection: NavbarItem = useMemo(
     () => ({
       key: 'rightSection',
-      content: (
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flex: 1 }}>
-          <Link to="/auth/signup" style={{ textDecoration: 'none' }}>
-            <Button variant="text" sx={{ marginRight: 2 }}>
-              My profile:
-              {user?.login.value}
-            </Button>
-          </Link>
-        </Box>
-      ),
+      content: user ? <MainNavbarAuthUser user={user} /> : null,
       navbarChildren: [],
     }),
     [user],

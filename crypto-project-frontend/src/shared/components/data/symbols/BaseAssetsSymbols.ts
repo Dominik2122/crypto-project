@@ -1,16 +1,16 @@
 enum BaseAssetsSymbols {
-  USD,
-  EUR,
-  PLN,
-  AUD,
-  GBP,
-  BTC,
-  ETH,
-  BUSD,
-  BNB,
-  DAI,
-  XRP,
-  NONE,
+  USD = 'USD',
+  EUR = 'EUR',
+  PLN = 'PLN',
+  AUD = 'AUD',
+  GBP = 'GBP',
+  BTC = 'BTC',
+  ETH = 'ETH',
+  BUSD = 'BUSD',
+  BNB = 'BNB',
+  DAI = 'DAI',
+  XRP = 'XRP',
+  NONE = 'NONE',
 }
 
 export default BaseAssetsSymbols;

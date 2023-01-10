@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { Container } from '@mui/material';
-import LandingPageNavbar from '@/pages/landing-page/layout/MainNavbar';
+import LandingPageNavbar from '@/shared/components/layout/navbar/MainNavbar';
 
-const LandingPageLayout = ({ children }: { children: ReactNode }) => (
+const MainLayout = ({ children }: { children: ReactNode }) => (
   <>
     <LandingPageNavbar />
     <Container
@@ -19,4 +19,4 @@ const LandingPageLayout = ({ children }: { children: ReactNode }) => (
   </>
 );
 
-export default LandingPageLayout;
+export default MainLayout;

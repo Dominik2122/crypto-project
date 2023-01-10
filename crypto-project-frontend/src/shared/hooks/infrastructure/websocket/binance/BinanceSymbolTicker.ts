@@ -8,9 +8,10 @@ import CurrencySymbols from '@/shared/components/data/symbols/BaseAssetsSymbols'
 import BaseAssetsSymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
 import binanceCryptoSymbols from '@/shared/hooks/infrastructure/websocket/binance/binanceCryptoSymbols';
 import binanceBaseAssetSymbols from '@/shared/hooks/infrastructure/websocket/binance/binanceBaseAssetSymbols';
+import CryptoStockMarketCandle from '@/modules/stock-market/domain/CryptoStockMarketCandle';
 
 export interface BinanceSymbolTicker {
-  e: string; // Event type
+  e: string; // Kline open time
   E: number; // Event time
   s: string; // Symbol
   p: string; // Price change
@@ -35,6 +36,21 @@ export interface BinanceSymbolTicker {
   n: number; // Total number of trades
 }
 
+export type BinanceCandle = [
+  number, // Kline open time
+  string, // Open price
+  string, // High price
+  string, // Low price
+  string, // Close price
+  string, // Volume
+  number, // Kline Close time
+  string, // Quote asset volume
+  number, // Number of trades
+  string, // Taker buy base asset volume
+  string, // Taker buy quote asset volume
+  string, // Unused field, ignore.
+];
+
 const currenciesNames = Object.entries(binanceBaseAssetSymbols);
 const { nameLookup } = cryptoSymbol({});
 const getAssetNameFromSymbol = (symbol: string) => {
@@ -46,7 +62,7 @@ const getAssetNameFromSymbol = (symbol: string) => {
       const splitAssets = tickerSymbol.split(currencyValue);
       name = nameLookup(splitAssets[0]);
       currency = currencyKey as unknown as BaseAssetsSymbols;
-      tickerSymbol = `${splitAssets[0]}/${currencyValue}`;
+      tickerSymbol = `${splitAssets[0]}/${currency}`;
     }
   });
 
@@ -64,15 +80,22 @@ export const binanceSymbolTickerConverter = (data: BinanceSymbolTicker) => {
   return new CryptoStockMarket(cryptoName ?? data.s, new TickerSymbol(tickerSymbol), price, stats);
 };
 
+export const binanceCandleConverter = (data: BinanceCandle) =>
+  new CryptoStockMarketCandle(Number(data[1]), Number(data[4]), new Date(data[0]));
+
+export const convertTickerNameToBinanceParams = (
+  ticker: CryptoSymbols,
+  currency: CurrencySymbols,
+): string =>
+  `${binanceCryptoSymbols[ticker]}${binanceBaseAssetSymbols[currency].toLowerCase()}@ticker`;
+
 export const convertTickerNamesToBinanceParams = (
   tickers: CryptoSymbols[],
   currency: CurrencySymbols,
 ): string[] => {
   const binanceParams: string[] = [];
   tickers.forEach((ticker) =>
-    binanceParams.push(
-      `${binanceCryptoSymbols[ticker]}${binanceBaseAssetSymbols[currency].toLowerCase()}@ticker`,
-    ),
+    binanceParams.push(convertTickerNameToBinanceParams(ticker, currency)),
   );
   return binanceParams;
 };

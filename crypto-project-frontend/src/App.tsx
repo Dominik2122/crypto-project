@@ -1,20 +1,34 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
-import { LandingPage, LandingPageRoutes } from '@/pages/landing-page/LandingPage';
+import { LandingPage } from '@/pages/landing-page/LandingPage';
 import { AuthContextProvider } from '@/modules/authentication/application/authContext';
+import { AuthPage, AuthPageChildren } from '@/pages/auth/AuthPage';
+import { CryptoPage, CryptoPageChildren } from '@/pages/crypto/CryptoPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LandingPage />,
-    children: LandingPageRoutes,
+  },
+  {
+    path: '/auth',
+    element: <AuthPage />,
+    children: AuthPageChildren,
+  },
+  {
+    path: '/profile',
+  },
+  {
+    path: '/crypto',
+    element: <CryptoPage />,
+    children: CryptoPageChildren,
   },
   {
     path: '*',
     element: (
       <main style={{ padding: '1rem' }}>
-        <p>There's nothing here!</p>
+        <p>Page under construction, sorry!</p>
       </main>
     ),
   },
