@@ -6,7 +6,7 @@ import { CryptoDetailsPage } from '@/pages/crypto/children/CryptoDetailsPage';
 
 export const CryptoPageChildren = [
   {
-    path: ':tickerId',
+    path: ':baseAssetId',
     element: <CryptoDetailsPage />,
   },
   {

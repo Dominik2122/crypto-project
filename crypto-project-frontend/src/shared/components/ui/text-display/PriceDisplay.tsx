@@ -1,17 +1,17 @@
-import * as React from 'react';
 import { Typography } from '@mui/material';
-import UIBaseAssetsSymbols from '@/shared/components/data/symbols/UIBaseAssetsSymbols';
-import BaseAssetsSymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
+import * as React from 'react';
+import { QuoteAssetsSymbols } from '@/modules/stock-market/domain/QuoteAssetsSymbols';
+import { getAssetSymbol } from '@/shared/components/ui/symbols/GetAssetSymbolOrEmpty';
 
 const PriceDisplay = ({
   currency,
   valueToDisplay,
 }: {
-  currency: BaseAssetsSymbols;
+  currency: QuoteAssetsSymbols;
   valueToDisplay: string;
 }) => (
   <Typography noWrap variant="body2">
-    {`${UIBaseAssetsSymbols[currency]} `}
+    {getAssetSymbol(currency)}
     {valueToDisplay}
   </Typography>
 );

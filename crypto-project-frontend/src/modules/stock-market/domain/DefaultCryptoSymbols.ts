@@ -1,9 +1,9 @@
 enum DefaultCryptoSymbols {
-  BTC,
-  ETH,
-  ADA,
-  SOL,
-  DOGE,
+  BTC = 'BTC',
+  ETH = 'ETH',
+  ADA = 'ADA',
+  SOL = 'SOL',
+  DOGE = 'DOGE',
 }
 
 export default DefaultCryptoSymbols;

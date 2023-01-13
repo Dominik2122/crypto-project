@@ -1,13 +1,13 @@
-import CurrencySymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
-import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
+import { AssetSymbol } from '@/modules/stock-market/domain/AssetSymbol';
+import { QuoteAssetsSymbols } from '@/modules/stock-market/domain/QuoteAssetsSymbols';
 
 export default class TickerSymbol {
-  public readonly baseAsset: DefaultCryptoSymbols;
+  public readonly baseAsset: AssetSymbol;
 
-  public readonly quoteAsset: CurrencySymbols;
+  public readonly quoteAsset: QuoteAssetsSymbols;
 
   constructor(public readonly symbol: string) {
-    this.baseAsset = symbol.split('/')[0] as unknown as DefaultCryptoSymbols;
-    this.quoteAsset = symbol.split('/')[1] as unknown as CurrencySymbols;
+    this.baseAsset = new AssetSymbol(symbol.split('/')[0]);
+    this.quoteAsset = symbol.split('/')[1] as unknown as QuoteAssetsSymbols;
   }
 }

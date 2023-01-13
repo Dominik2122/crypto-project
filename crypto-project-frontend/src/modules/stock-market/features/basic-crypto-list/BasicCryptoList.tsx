@@ -23,7 +23,6 @@ const BasicCryptoList = () => {
   ]);
 
   const cryptoStockMarkets = useAllCryptoTickersQuery();
-
   return cryptoStockMarkets.length ? (
     <Table size="medium" aria-label="a table">
       <colgroup>
@@ -64,10 +63,11 @@ const BasicCryptoList = () => {
           <BasicCryptoListItem
             key={row.tickerSymbol.symbol}
             value={row.currentPrice.value}
-            currency={row.currentPrice.currency}
+            quoteAssetName={row.currentPrice.currency}
             percentageChange={row.stats.priceChangePercent}
-            ticker={row.tickerSymbol.symbol}
+            assetName={row.name}
             volume={row.stats.tradedAssetVolume}
+            baseAssetSymbol={row.tickerSymbol.baseAsset.name}
           />
         ))}
       </TableBody>

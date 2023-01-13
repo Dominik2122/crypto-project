@@ -1,4 +1,4 @@
-enum BaseAssetsSymbols {
+export enum QuoteAssetsSymbols {
   USD = 'USD',
   EUR = 'EUR',
   PLN = 'PLN',
@@ -10,7 +10,4 @@ enum BaseAssetsSymbols {
   BNB = 'BNB',
   DAI = 'DAI',
   XRP = 'XRP',
-  NONE = 'NONE',
 }
-
-export default BaseAssetsSymbols;

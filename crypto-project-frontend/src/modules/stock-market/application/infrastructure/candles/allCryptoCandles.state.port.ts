@@ -1,11 +1,7 @@
-import CryptoStockMarketCandle from '@/modules/stock-market/domain/candles/CryptoStockMarketCandle';
+import { CryptoMarketCandlesInterval } from '@/modules/stock-market/domain/candles/CryptoMarketCandlesInterval';
 
 export interface AllCryptoCandlesStatePort {
-  interval:
-    candles
-  CryptoStockMarketCandle;
-  :
-  [];
+  interval?: CryptoMarketCandlesInterval;
 
-  add(candles: CryptoStockMarketCandle[]): void;
+  setInterval(interval: CryptoMarketCandlesInterval): void;
 }

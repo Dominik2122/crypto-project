@@ -1,14 +1,12 @@
 import { cryptoSymbol } from 'crypto-symbol';
+import { QuoteAssetsSymbols } from '@/modules/stock-market/domain/QuoteAssetsSymbols';
 import CryptoStockMarketPrice from '@/modules/stock-market/domain/market-stats/CryptoStockMarketPrice';
 import CryptoStockMarketStats from '@/modules/stock-market/domain/market-stats/CryptoStockMarketStats';
 import CryptoStockMarket from '@/modules/stock-market/domain/market-stats/CryptoStockMarket';
 import TickerSymbol from '@/modules/stock-market/domain/TickerSymbol';
 import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
-import CurrencySymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
-import BaseAssetsSymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
 import binanceCryptoSymbols from '@/shared/hooks/infrastructure/websocket/binance/binanceCryptoSymbols';
 import binanceBaseAssetSymbols from '@/shared/hooks/infrastructure/websocket/binance/binanceBaseAssetSymbols';
-import CryptoStockMarketCandle from '@/modules/stock-market/domain/candles/CryptoStockMarketCandle';
 
 export interface BinanceSymbolTicker {
   e: string; // Kline open time
@@ -36,62 +34,44 @@ export interface BinanceSymbolTicker {
   n: number; // Total number of trades
 }
 
-export type BinanceCandle = [
-  number, // Kline open time
-  string, // Open price
-  string, // High price
-  string, // Low price
-  string, // Close price
-  string, // Volume
-  number, // Kline Close time
-  string, // Quote asset volume
-  number, // Number of trades
-  string, // Taker buy base asset volume
-  string, // Taker buy quote asset volume
-  string, // Unused field, ignore.
-];
-
 const currenciesNames = Object.entries(binanceBaseAssetSymbols);
 const { nameLookup } = cryptoSymbol({});
 const getAssetNameFromSymbol = (symbol: string) => {
   let name: string | undefined = symbol;
   let tickerSymbol: string = symbol;
-  let currency: BaseAssetsSymbols | undefined;
+  let quoteAsset: QuoteAssetsSymbols | undefined;
   currenciesNames.forEach(([currencyKey, currencyValue]) => {
     if (symbol.endsWith(currencyValue)) {
       const splitAssets = tickerSymbol.split(currencyValue);
       name = nameLookup(splitAssets[0]);
-      currency = currencyKey as unknown as BaseAssetsSymbols;
-      tickerSymbol = `${splitAssets[0]}/${currency}`;
+      quoteAsset = currencyKey as unknown as QuoteAssetsSymbols;
+      tickerSymbol = `${splitAssets[0]}/${quoteAsset}`;
     }
   });
 
-  return [name, currency, tickerSymbol] as const;
+  return [name, quoteAsset, tickerSymbol] as const;
 };
 
 export const binanceSymbolTickerConverter = (data: BinanceSymbolTicker) => {
   const [cryptoName, currency, tickerSymbol] = getAssetNameFromSymbol(data.s);
-  const price = new CryptoStockMarketPrice(Number(data.c), currency ?? BaseAssetsSymbols.NONE);
+  const price = new CryptoStockMarketPrice(Number(data.c), currency ?? '');
   const stats = new CryptoStockMarketStats(Number(data.v), data.n, Number(data.P));
   return new CryptoStockMarket(cryptoName ?? data.s, new TickerSymbol(tickerSymbol), price, stats);
 };
 
-export const binanceCandleConverter = (data: BinanceCandle) =>
-  new CryptoStockMarketCandle(Number(data[1]), Number(data[4]), new Date(data[0]));
-
 export const convertTickerNameToBinanceParams = (
   ticker: DefaultCryptoSymbols,
-  currency: CurrencySymbols,
+  baseAsset: QuoteAssetsSymbols,
 ): string =>
-  `${binanceCryptoSymbols[ticker]}${binanceBaseAssetSymbols[currency].toLowerCase()}@ticker`;
+  `${binanceCryptoSymbols[ticker]}${binanceBaseAssetSymbols[baseAsset].toLowerCase()}@ticker`;
 
 export const convertTickerNamesToBinanceParams = (
   tickers: DefaultCryptoSymbols[],
-  currency: CurrencySymbols,
+  baseAsset: QuoteAssetsSymbols,
 ): string[] => {
   const binanceParams: string[] = [];
   tickers.forEach((ticker) =>
-    binanceParams.push(convertTickerNameToBinanceParams(ticker, currency)),
+    binanceParams.push(convertTickerNameToBinanceParams(ticker, baseAsset)),
   );
   return binanceParams;
 };

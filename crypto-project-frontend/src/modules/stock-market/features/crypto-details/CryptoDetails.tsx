@@ -1,6 +1,9 @@
 import * as React from 'react';
-import TickerSymbol from '@/modules/stock-market/domain/TickerSymbol';
+import { useContextBaseAsset } from '@/modules/stock-market/application/contextBaseTicker';
 
-const CryptoDetails = ({ ticker }: { ticker: TickerSymbol }) => null;
+const CryptoDetails = () => {
+  const { baseAsset } = useContextBaseAsset();
+  return <></>;
+};
 
 export default CryptoDetails;

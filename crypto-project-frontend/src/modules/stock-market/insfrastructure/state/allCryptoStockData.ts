@@ -7,7 +7,7 @@ const checkIfExistsAndUpdateMutable = (
   newValue: CryptoStockMarket,
 ): CryptoStockMarket[] => {
   const dataIndex = list.findIndex(
-    (crypto) => crypto.tickerSymbol.symbol === newValue?.tickerSymbol.symbol,
+    (crypto) => crypto.tickerSymbol.baseAsset.name === newValue?.tickerSymbol.baseAsset.name,
   );
   if (dataIndex >= 0) {
     list.splice(dataIndex, 1, newValue);

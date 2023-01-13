@@ -1,4 +1,7 @@
-import Stocks from '@/modules/stock-market/domain/DefaultCryptoSymbols';
-import CurrencySymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
+import { QuoteAssetsSymbols } from '@/modules/stock-market/domain/QuoteAssetsSymbols';
+import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
 
-export type LoadSpecificCryptoStocks = (stocks: Stocks[], fiat?: CurrencySymbols) => void;
+export type LoadSpecificCryptoStocks = (
+  stocks: DefaultCryptoSymbols[],
+  fiat?: QuoteAssetsSymbols,
+) => void;

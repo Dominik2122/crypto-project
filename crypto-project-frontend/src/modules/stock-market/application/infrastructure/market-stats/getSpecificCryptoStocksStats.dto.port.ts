@@ -1,8 +1,8 @@
 import CryptoStockMarket from '@/modules/stock-market/domain/market-stats/CryptoStockMarket';
 import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
-import CurrencySymbols from '@/shared/components/data/symbols/BaseAssetsSymbols';
+import { QuoteAssetsSymbols } from '@/modules/stock-market/domain/QuoteAssetsSymbols';
 
 export type GetSpecificCryptoStocksStatsDtoPort = (
   tickers: DefaultCryptoSymbols[],
-  currency: CurrencySymbols,
+  quoteAsset: QuoteAssetsSymbols,
 ) => CryptoStockMarket | undefined;
