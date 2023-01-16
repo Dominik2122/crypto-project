@@ -51,7 +51,7 @@ const MainPageWelcome = ({ userName }: { userName: string }) => (
   <Box
     component="section"
     sx={{
-      marginTop: 8,
+      marginTop: 4,
       display: 'flex',
       flexDirection: 'column',
     }}

@@ -12,7 +12,7 @@ export const useSetCryptoCandlesInterval: SetCryptoCandlesInterval = () =>
   cryptoMarketCandles((state) => state.setInterval);
 export const useCurrentInterval = () => {
   const interval = cryptoMarketCandles((state) => state.interval);
-  const defaultInterval = useMemo(() => new CryptoMarketCandlesInterval(5, 'm'), []);
+  const defaultInterval = useMemo(() => new CryptoMarketCandlesInterval(1, 'm'), []);
   return interval ?? defaultInterval;
 };
 

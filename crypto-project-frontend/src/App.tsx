@@ -10,11 +10,17 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <LandingPage />,
+    handle: {
+      crumb: () => 'Home',
+    },
   },
   {
     path: '/auth',
     element: <AuthPage />,
     children: AuthPageChildren,
+    handle: {
+      crumb: () => 'Authorization',
+    },
   },
   {
     path: '/profile',
@@ -23,6 +29,9 @@ const router = createBrowserRouter([
     path: '/crypto',
     element: <CryptoPage />,
     children: CryptoPageChildren,
+    handle: {
+      crumb: () => 'Crypto',
+    },
   },
   {
     path: '*',

@@ -17,7 +17,7 @@ const checkIfExistsAndUpdateMutable = (
   return list;
 };
 
-const allCryptoStockData = create<AllCryptoStocksStatsStatePort>()((set) => ({
+const useAllCryptoStockData = create<AllCryptoStocksStatsStatePort>()((set) => ({
   tickers: [],
   updateOne: (ticker: CryptoStockMarket) =>
     set((state) => {
@@ -33,4 +33,4 @@ const allCryptoStockData = create<AllCryptoStocksStatsStatePort>()((set) => ({
     }),
 }));
 
-export default allCryptoStockData;
+export default useAllCryptoStockData;

@@ -61,9 +61,11 @@ export const binanceSymbolTickerConverter = (data: BinanceSymbolTicker) => {
 
 export const convertTickerNameToBinanceParams = (
   ticker: DefaultCryptoSymbols,
-  baseAsset: QuoteAssetsSymbols,
+  quoteAssetsSymbols: QuoteAssetsSymbols,
 ): string =>
-  `${binanceCryptoSymbols[ticker]}${binanceBaseAssetSymbols[baseAsset].toLowerCase()}@ticker`;
+  `${binanceCryptoSymbols[ticker]}${binanceBaseAssetSymbols[
+    quoteAssetsSymbols
+  ].toLowerCase()}@ticker`;
 
 export const convertTickerNamesToBinanceParams = (
   tickers: DefaultCryptoSymbols[],

@@ -5,14 +5,14 @@ import { LoadAllCryptoStocksStats } from '@/modules/stock-market/application/com
 import { GetAllCryptoStockMarketsQuery } from '@/modules/stock-market/application/query/getAllCryptoStockMarketsQuery';
 import DefaultCryptoSymbols from '@/modules/stock-market/domain/DefaultCryptoSymbols';
 import useGetAllStockMarketsDtoPort from '@/modules/stock-market/insfrastructure/websocket/useGetAllStockMarketsDtoPort';
-import allCryptoStockData from '@/modules/stock-market/insfrastructure/state/allCryptoStockData';
+import useAllCryptoStockData from '@/modules/stock-market/insfrastructure/state/useAllCryptoStockData';
 import { LoadSpecificCryptoStocks } from '@/modules/stock-market/application/command/loadSpecificCryptoStocks';
 import useGetSpecificStockMarketsDtoPort from '@/modules/stock-market/insfrastructure/websocket/useGetSpecificStockMarketsDtoPort';
 
 export const useLoadAllCryptoStockMarketsCommand: LoadAllCryptoStocksStats = () => {
   const quoteAsset = useQuoteAsset();
   const data = useGetAllStockMarketsDtoPort();
-  const updateAll = allCryptoStockData((state) => state.updateAll);
+  const updateAll = useAllCryptoStockData((state) => state.updateAll);
   useEffect(() => {
     if (data) {
       const filteredData = data.filter(
@@ -28,7 +28,7 @@ export const useLoadCryptoSpecificStockMarketsCommand: LoadSpecificCryptoStocks 
 ) => {
   const quoteAsset = useQuoteAsset();
   const data = useGetSpecificStockMarketsDtoPort(stocks, quoteAsset);
-  const updateOne = allCryptoStockData((state) => state.updateOne);
+  const updateOne = useAllCryptoStockData((state) => state.updateOne);
   useEffect(() => {
     if (data) {
       updateOne(data);
@@ -37,4 +37,4 @@ export const useLoadCryptoSpecificStockMarketsCommand: LoadSpecificCryptoStocks 
 };
 
 export const useAllCryptoTickersQuery: GetAllCryptoStockMarketsQuery = () =>
-  allCryptoStockData((state) => state.tickers);
+  useAllCryptoStockData((state) => state.tickers);

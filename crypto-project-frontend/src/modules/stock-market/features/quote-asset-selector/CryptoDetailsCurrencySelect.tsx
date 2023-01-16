@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import React from 'react';
+import { useDesktopMediaQuery } from '@/shared/components/layout/media-query/Desktop';
 import {
   useQuoteAsset,
   useSetQuoteAsset,
@@ -10,13 +11,14 @@ import { getAssetSymbolOrEmpty } from '@/shared/components/ui/symbols/GetAssetSy
 export const CryptoDetailsCurrencySelect = () => {
   const setQuoteAsset = useSetQuoteAsset();
   const quoteAsset = useQuoteAsset();
+  const isDesktop = useDesktopMediaQuery();
 
   const currencies: string[] = Object.keys(QuoteAssetsSymbols);
   const onValueSelect = (asset: SelectChangeEvent) => {
     setQuoteAsset(asset.target.value as QuoteAssetsSymbols);
   };
   return (
-    <FormControl variant="filled" sx={{ width: 200 }}>
+    <FormControl fullWidth={!isDesktop} variant="outlined" sx={{ width: isDesktop ? 300 : '100%' }}>
       <InputLabel id="currency-select-label">Quote asset</InputLabel>
       <Select
         labelId="currency-select-label"
