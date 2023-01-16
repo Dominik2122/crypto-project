@@ -70,7 +70,7 @@ const LandingPageNavbar = () => {
         navbarChildren: [
           {
             key: 'learn-',
-            content: <div className="">GUPIO PG</div>,
+            content: <div className="" />,
             navbarChildren: [],
           },
         ],

@@ -24,8 +24,10 @@ const CryptoDetailsPageInfo = ({ ticker }: { ticker: AssetSymbol }) => {
         {nameLookup(ticker.name)}
       </Typography>
       <Box sx={{ marginY: isDesktop ? 2 : 4, display: isDesktop ? 'flex' : 'initial' }}>
-        <Box sx={{ marginY: 1 }}>{chartInterval}</Box>
-        <CryptoDetailsCurrencySelect />
+        {chartInterval}
+        <Box sx={{ marginY: 2 }}>
+          <CryptoDetailsCurrencySelect />
+        </Box>
       </Box>
       <Box sx={{ marginTop: 4 }}>{chart}</Box>
     </Box>

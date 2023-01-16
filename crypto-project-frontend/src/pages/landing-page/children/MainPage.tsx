@@ -59,7 +59,7 @@ const MainPageWelcome = ({ userName }: { userName: string }) => (
     <Typography sx={{ fontWeight: 'bold' }} variant="h4">
       Welcome {userName}
     </Typography>
-    <Typography align="center" variant="h6">
+    <Typography sx={{ marginTop: 1 }} align="center" variant="h6">
       Checkout your portfolio and trade!
     </Typography>
   </Box>
